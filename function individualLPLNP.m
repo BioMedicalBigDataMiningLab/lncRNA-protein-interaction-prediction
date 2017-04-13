@@ -22,6 +22,7 @@ function individualLPLNP
     cross_validation(seed, interaction_matrix, 100, 0.9, extracted_lncRNA_expression, 1);
 end
 
+%%if we use interaction profile as feature, set feature_matrix = [], flag = 0; otherwise, flag = 1
 function cross_validation(seed, interaction_matrix, neighbor_num, alpha, feature_matrix, flag)
     CV=5; %%We take 5-fold crossvalidation
     rand('state',seed);
@@ -209,7 +210,7 @@ end
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%'regulation1':LN similarity, 'regulation2': RLN similarity
 function W=optimization_similairty_matrix(feature_matrix,nearst_neighbor_matrix,tag,regulation) %%quadratic programming
    row_num=size(feature_matrix,1);
    W=zeros(1,row_num);
@@ -246,7 +247,7 @@ function W=optimization_similairty_matrix(feature_matrix,nearst_neighbor_matrix,
    end
 end
 
-function distance_matrix=calculate_instances(feature_matrix) %%calculate the distance between each lines(each line means different protein or lncRNA)
+function distance_matrix=calculate_instances(feature_matrix) %%calculate the distance between each feature vector of lncRNAs or proteins.
     [row_num,col_num]=size(feature_matrix);
     distance_matrix=zeros(row_num,row_num);
     for i=1:row_num
@@ -258,7 +259,7 @@ function distance_matrix=calculate_instances(feature_matrix) %%calculate the dis
     end
 end
 
-function nearst_neighbor_matrix=calculate_neighbors(distance_matrix,neighbor_num)%% calculate the nearest K points
+function nearst_neighbor_matrix=calculate_neighbors(distance_matrix,neighbor_num)%% calculate the nearest K neighbors
   [sv si]=sort(distance_matrix,2,'ascend');
   [row_num,col_num]=size(distance_matrix);
   nearst_neighbor_matrix=zeros(row_num,col_num);
