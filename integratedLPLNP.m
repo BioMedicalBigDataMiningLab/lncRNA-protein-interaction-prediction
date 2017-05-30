@@ -1,11 +1,9 @@
 function integratedLPLNP
     warning('off');
     result = zeros(1, 7);
-    nums = 50;
-    for seed = 1 : nums
-        result = result + cross_validation(seed);
-    end
-    result = result / nums
+    seed = 1;
+    cross_validation(seed);
+    
 end
 
 function result = cross_validation(seed)
