@@ -1,4 +1,4 @@
-function individualLPLNP
+function individualLPLNP  %%individual
     warning('off');
     seed = 1;
     load extracted_interaction.txt;
