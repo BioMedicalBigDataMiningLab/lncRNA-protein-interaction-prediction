@@ -1,4 +1,4 @@
-function otherMethod
+function otherMethod  %%other method
     warning('off');
     seed = 1;
     cross_validation(seed)    
